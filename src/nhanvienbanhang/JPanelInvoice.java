@@ -57,24 +57,26 @@ public class JPanelInvoice extends JPanel {
 		JLabel lblNewLabel = new JLabel("Invoice");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panel.add(lblNewLabel);
-		
+			JLabel lblNewLabel_1 = new JLabel("Type Invoice: ");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		JPanel panel_3 = new JPanel();
 		add(panel_3);
 		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblNewLabel_1 = new JLabel("Type Invoice: ");
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
+	
 		panel_3.add(lblNewLabel_1);
-		
+		jcomboboxInvoice.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		jcomboboxInvoice.setMaximumRowCount(15);
+		panel_3.add(jcomboboxInvoice);
 		jcomboboxInvoice = new JComboBox();
 		jcomboboxInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jcomboboxInvoice_actionPerformed(e);
 			}
 		});
-		jcomboboxInvoice.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		jcomboboxInvoice.setMaximumRowCount(15);
-		panel_3.add(jcomboboxInvoice);
+			JPanel panel_1 = new JPanel();
+		add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		jbuttonRefresh = new JButton("Refresh");
 		jbuttonRefresh.addActionListener(new ActionListener() {
@@ -86,9 +88,9 @@ public class JPanelInvoice extends JPanel {
 		jbuttonRefresh.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		panel_3.add(jbuttonRefresh);
 		
-		JPanel panel_1 = new JPanel();
-		add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+
+
+	
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Invoice Table", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -101,6 +103,8 @@ public class JPanelInvoice extends JPanel {
 				jtableInvoice_mouseClicked(e);
 			}
 		});
+
+
 		jtableInvoice.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(jtableInvoice);
 		
@@ -178,6 +182,8 @@ public class JPanelInvoice extends JPanel {
 		jtableInvoice.getTableHeader().setReorderingAllowed(false);
 		jtableInvoice.setRowHeight(60);
 	}
+
+
 	public void jcomboboxInvoice_actionPerformed(ActionEvent e) {
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
 		String type = jcomboboxInvoice.getSelectedItem().toString();
@@ -196,6 +202,8 @@ public class JPanelInvoice extends JPanel {
 		value = Integer.parseInt(jtableInvoice.getValueAt(selectedRow, 0).toString());
 		
 	}
+
+
 	public void jbuttonCancelInvoice_actionPerformed(ActionEvent e) {
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
 		OutInvoiceDetails outInvoiceDetails = outInvoiceDetailsModel.findByID(value);
@@ -210,6 +218,7 @@ public class JPanelInvoice extends JPanel {
 			JOptionPane.showMessageDialog(this, "Cancel Failed");
 		}
 	}
+
 	public void jbuttonBackItem_actionPerformed(ActionEvent e) {
 		
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
@@ -236,5 +245,9 @@ public class JPanelInvoice extends JPanel {
 			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetailsByStatus(false));
 		}
 	}
+
+
+
+
 
 }

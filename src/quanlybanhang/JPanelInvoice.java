@@ -45,6 +45,8 @@ public class JPanelInvoice extends JPanel {
 	private JButton jbuttonSearch;
 	private String type;
 
+
+
 	/**
 	 * Create the panel.
 	 */
@@ -74,9 +76,15 @@ public class JPanelInvoice extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				jcomboboxInvoice_actionPerformed(e);
 			}
+
 		});
+
+
 		jcomboboxInvoice.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		jcomboboxInvoice.setMaximumRowCount(15);
+
+
+
 		panel_3.add(jcomboboxInvoice);
 		
 		JLabel lblNewLabel_2 = new JLabel("Date: ");
@@ -119,6 +127,9 @@ public class JPanelInvoice extends JPanel {
 		this.data = data;
 		initJFrame();
 	}
+
+
+
 	public void initJFrame() {
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
 		DefaultComboBoxModel<String> defaultComboBoxModel = new DefaultComboBoxModel<String>();
@@ -158,7 +169,11 @@ public class JPanelInvoice extends JPanel {
 			});
 			
 		}
+
+
+
 		jtableInvoice.setModel(defaultTableModel);
+
 		jtableInvoice.getTableHeader().setReorderingAllowed(false);
 		
 	}
@@ -173,15 +188,12 @@ public class JPanelInvoice extends JPanel {
 			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetailsByStatus(false));
 		}
 	}
-	public void jtableInvoice_mouseClicked(MouseEvent e) {
-		
-		int selectedRow = jtableInvoice.getSelectedRow();
-		value = Integer.parseInt(jtableInvoice.getValueAt(selectedRow, 0).toString());
-		
-	}
 	public void jbuttonSearch_actionPerformed(ActionEvent e) {
 		type = jcomboboxInvoice.getSelectedItem().toString();
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
+
+
+
 		fillDataToTable1(outInvoiceDetailsModel.findByDateAll(jdateChooser.getDate()));
 		if(type.equalsIgnoreCase("All Invoice")) {
 			fillDataToTable1(outInvoiceDetailsModel.findByDateAll(jdateChooser.getDate()));
@@ -192,6 +204,16 @@ public class JPanelInvoice extends JPanel {
 		}
 		
 	}
+	public void jtableInvoice_mouseClicked(MouseEvent e) {
+		
+		int selectedRow = jtableInvoice.getSelectedRow();
+
+
+		
+		value = Integer.parseInt(jtableInvoice.getValueAt(selectedRow, 0).toString());
+		
+	}
+	
 	
 
 }

@@ -19,6 +19,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 
+
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
@@ -64,6 +66,9 @@ public class JPanelInventory extends JPanel {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panel.add(lblNewLabel);
 		
+
+
+
 		JPanel panel_1 = new JPanel();
 		add(panel_1);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -93,6 +98,9 @@ public class JPanelInventory extends JPanel {
 			}
 		});
 		
+
+
+
 		JLabel lblNewLabel_2 = new JLabel("0\r\n");
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(lblNewLabel_2);
@@ -156,16 +164,7 @@ public class JPanelInventory extends JPanel {
 		}
 		
 	}
-	public void jcomboBoxCategory_actionPerformed(ActionEvent e) {
-		WarehouseModel warehouseModel = new WarehouseModel();
-		Category category = (Category) jcomboBoxCategory.getSelectedItem();
-		if(category.getCategoryName().equalsIgnoreCase("all")) {
-			fillDataToTable3(warehouseModel.findAll());
-		} else {
-			fillDataToTable3(warehouseModel.inventory(category.getCategoryName()));
-		}
-		
-	}
+
 	private void fillDataToTable3(List<Warehouse> warehouses) {
 		
 		DefaultTableModel defaultTableModel=new DefaultTableModel() {
@@ -193,6 +192,19 @@ public class JPanelInventory extends JPanel {
 		jtableInventory.setModel(defaultTableModel);
 		jtableInventory.getTableHeader().setReorderingAllowed(false);
 	}
+		public void jcomboBoxCategory_actionPerformed(ActionEvent e) {
+		WarehouseModel warehouseModel = new WarehouseModel();
+		Category category = (Category) jcomboBoxCategory.getSelectedItem();
+		if(category.getCategoryName().equalsIgnoreCase("all")) {
+			fillDataToTable3(warehouseModel.findAll());
+		} else {
+			fillDataToTable3(warehouseModel.inventory(category.getCategoryName()));
+		}
+		
+	}
+	public void jbuttonRefresh_actionPerformed(ActionEvent e) {
+		initJFrame();
+	}
 	public void jslider_stateChanged(ChangeEvent e) {
 		WarehouseModel warehouseModel = new  WarehouseModel();
 		CategoryModel categoryModel = new CategoryModel();
@@ -201,7 +213,5 @@ public class JPanelInventory extends JPanel {
 		jtextFieldPrice.setText("< " + String.valueOf(jslider.getValue()));
 		fillDataToTable3(warehouseModel.totalInventory(jslider.getValue()));
 	}
-	public void jbuttonRefresh_actionPerformed(ActionEvent e) {
-		initJFrame();
-	}
+	
 }

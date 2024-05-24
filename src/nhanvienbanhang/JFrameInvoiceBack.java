@@ -57,14 +57,14 @@ public class JFrameInvoiceBack extends JFrame {
 	public JFrameInvoiceBack() {
 		setBounds(100, 100, 301, 350);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		
+			JLabel lblNewLabel = new JLabel("Back Item Form");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		panel.add(lblNewLabel);
 		JPanel panel = new JPanel();
 		getContentPane().add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 25));
 		
-		JLabel lblNewLabel = new JLabel("Back Item Form");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		panel.add(lblNewLabel);
+	
 		
 		JPanel panel_5 = new JPanel();
 		getContentPane().add(panel_5);
@@ -87,29 +87,29 @@ public class JFrameInvoiceBack extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Item ID:       ");
 		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(lblNewLabel_1);
-		
+			JPanel panel_2 = new JPanel();
+		getContentPane().add(panel_2);
+		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		jtextFieldItemID = new JTextField();
 		jtextFieldItemID.setEditable(false);
 		jtextFieldItemID.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(jtextFieldItemID);
 		jtextFieldItemID.setColumns(10);
 		
-		JPanel panel_2 = new JPanel();
-		getContentPane().add(panel_2);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+	
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Quantity:      ");
 		lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_2.add(lblNewLabel_1_1);
+			JPanel panel_3 = new JPanel();
+		getContentPane().add(panel_3);
 		
 		jtextFieldQuantity = new JTextField();
 		jtextFieldQuantity.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_2.add(jtextFieldQuantity);
 		jtextFieldQuantity.setColumns(10);
 		
-		JPanel panel_3 = new JPanel();
-		getContentPane().add(panel_3);
-		
+	
 		JLabel lblNewLabel_1_2 = new JLabel("Feedback:     ");
 		lblNewLabel_1_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_3.add(lblNewLabel_1_2);
@@ -214,17 +214,4 @@ public class JFrameInvoiceBack extends JFrame {
 		}
 	}
 }
-//else if(Integer.parseInt(jtextFieldQuantity.getText()) == outInvoiceDetails.getQuantity()) {
-//	warehouse.setTotalInventory(warehouse.getTotalInventory() + Integer.parseInt(jtextFieldQuantity.getText()));
-//	if(outInvoiceDetailsModel.delete(outInvoiceDetails.getOutInvoiceDetailsID()) && wareHouseModel.updateTotalInventory(warehouse)
-//			&&backInvoiceDetailsModel.create(backInvoiceDetails)){
-//		JOptionPane.showMessageDialog(this, "Back Item Success");
-//		this.setVisible(false);
-//	}
-//	else {
-//		JOptionPane.showMessageDialog(this, "Back Item Failed");
-//	}
-//} else {
-//
-//	JOptionPane.showMessageDialog(this, "Error");
-//}
+

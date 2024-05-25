@@ -59,8 +59,8 @@ public class JFrameInvoiceBack extends JFrame {
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 			JLabel lblNewLabel = new JLabel("Back Item Form");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		panel.add(lblNewLabel);
 		JPanel panel = new JPanel();
+		panel.add(lblNewLabel);
 		getContentPane().add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 25));
 		

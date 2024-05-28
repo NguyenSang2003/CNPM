@@ -228,41 +228,7 @@ public class JPanelBuyItemsNhanVienBanHang extends JPanel {
 		panel_6.add(jbuttonCreateInvoice);
 		initJFrame();
 	}
-	public JPanelBuyItemsNhanVienBanHang(Map<String, Object> data) {
-		this();
-		initJFrame();
-		this.data = data;
-		
-	}
-	public void jtableBuyItems_mouseClicked(MouseEvent e) {
-		int selectedRow = jtableBuyItems.getSelectedRow();
-		String itemID = jtableBuyItems.getValueAt(selectedRow, 0).toString();
-		ItemModel itemModel = new ItemModel();
-		Item item = itemModel.findItem(itemID);
-		jtextFieldItemID.setText(itemID);
-		jtextFieldItemName.setText(item.getItemName());
-		jtextFieldPrice.setText(String.valueOf(item.getPrice()));
-		jtextFieldUnit.setText(item.getUnit());
-		
-		
-	}
-	public void initJFrame() {
-		ItemModel itemModels = new ItemModel();
-		fillDataToTable(itemModels.findAll());
-	}
-	public void jbuttonSearchItems_actionPerformed(ActionEvent e) {
-		ItemModel itemModel = new ItemModel();
-		String keyword = jtextFieldKeyword.getText();
-		fillDataToTable(itemModel.searchByKeyword(keyword));
-	}
-	public void fillDataToTable(List<Item> items) {
-		DefaultTableModel defaultTableModel = new DefaultTableModel() {
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				// TODO Auto-generated method stub
-				return false;
-			}
+	
 			
 		};
 		defaultTableModel.addColumn("itemID");

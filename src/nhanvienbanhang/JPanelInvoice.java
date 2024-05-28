@@ -132,7 +132,94 @@ public class JPanelInvoice extends JPanel {
 		panel_2.add(jbuttonBackItem);
 		initJFrame();
 	}
-	
+	public JPanelInvoice(Map<String, Object> data) {
+		this();
+		this.data = data;
+		initJFrame();
+	}
+	public void initJFrame() {
+		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
+		DefaultComboBoxModel<String> defaultComboBoxModel = new DefaultComboBoxModel<String>();
+		defaultComboBoxModel.addElement("All Invoice");
+		defaultComboBoxModel.addElement("Active Invoice");
+		defaultComboBoxModel.addElement("Cancel Invoice");
+		jcomboboxInvoice.setModel(defaultComboBoxModel);
+		fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetails());
+		jbuttonBackItem.setEnabled(false);
+		jbuttonCancelInvoice.setEnabled(false);
+	}
+	private void fillDataToTable1(List<OutInvoiceDetails> outInvoiceDetail) {
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
+		DefaultTableModel defaultTableModel=new DefaultTableModel() {
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+		};
+		defaultTableModel.addColumn("outInvoiceDetailsID");
+		defaultTableModel.addColumn("itemID");
+		defaultTableModel.addColumn("itemName");
+		defaultTableModel.addColumn("quantity");
+		defaultTableModel.addColumn("price");
+		defaultTableModel.addColumn("total");
+		defaultTableModel.addColumn("status");
+		defaultTableModel.addColumn("payment");
+		defaultTableModel.addColumn("created");
+		defaultTableModel.addColumn("unit");
+		defaultTableModel.addColumn("userID");
+		defaultTableModel.addColumn("customerName");
+		for(OutInvoiceDetails details:outInvoiceDetail) {
+			defaultTableModel.addRow(new Object[] {
+				details.getOutInvoiceDetailsID(),details.getItemID(),details.getItemName(),details.getQuantity(),details.getPrice(),details.getTotal(),details.isStatus(),details.getPayment(),
+				details.getCreated(),details.getUnit(),details.getUserID(),details.getCustomerName()
+			});
+			
+		}
+		jtableInvoice.setModel(defaultTableModel);
+		jtableInvoice.getTableHeader().setReorderingAllowed(false);
+		jtableInvoice.setRowHeight(60);
+	}
+
+
+	public void jcomboboxInvoice_actionPerformed(ActionEvent e) {
+		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
+		String type = jcomboboxInvoice.getSelectedItem().toString();
+		if(type.equalsIgnoreCase("All Invoice")) {
+			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetails());
+		} else if(type.equalsIgnoreCase("Active Invoice")) {
+			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetailsByStatus(true));
+		} else if(type.equalsIgnoreCase("Cancel Invoice")) {
+			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetailsByStatus(false));
+		}
+	}
+	public void jtableInvoice_mouseClicked(MouseEvent e) {
+		jbuttonBackItem.setEnabled(true);
+		jbuttonCancelInvoice.setEnabled(true);
+		int selectedRow = jtableInvoice.getSelectedRow();
+		value = Integer.parseInt(jtableInvoice.getValueAt(selectedRow, 0).toString());
+		
+	}
+
+
+	public void jbuttonCancelInvoice_actionPerformed(ActionEvent e) {
+		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
+		OutInvoiceDetails outInvoiceDetails = outInvoiceDetailsModel.findByID(value);
+		outInvoiceDetails.setStatus(false);
+		WarehouseModel wareHouseModel = new WarehouseModel();
+		Warehouse warehouse = wareHouseModel.findByItemID(outInvoiceDetailsModel.findByID(value).getItemID());
+		warehouse.setTotalInventory(warehouse.getTotalInventory() + outInvoiceDetailsModel.findByID(value).getQuantity());
+		if(outInvoiceDetailsModel.updateStatus(outInvoiceDetails) && wareHouseModel.updateTotalInventory(warehouse)) {
+			JOptionPane.showMessageDialog(this, "Cancel Success");
+			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetails());
+		} else {
+			JOptionPane.showMessageDialog(this, "Cancel Failed");
+		}
+	}
+
+
 
 	public void jbuttonBackItem_actionPerformed(ActionEvent e) {
 		
@@ -147,6 +234,7 @@ public class JPanelInvoice extends JPanel {
 			JFrameInvoiceBack back = new JFrameInvoiceBack(data);
 			back.setVisible(true);
 			
+
 	
 	}
 	public void jbuttonRefresh_actionPerformed(ActionEvent e) {

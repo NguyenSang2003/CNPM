@@ -110,7 +110,8 @@ public class JPanelItemNhanVienBanHang extends JPanel {
         fillDataToTable(itemModel.findAll());
     }
     
-    // Điền dữ liệu vào bảng
+    // Normal flow bước 4: Hệ thống trả về sản phẩm phù hợp.
+    // Điền kết quả dữ liệu vào danh sách items
     public void fillDataToTable(List<Item> items) {
         DefaultTableModel defaultTableModel = new DefaultTableModel() {
             @Override
@@ -137,6 +138,8 @@ public class JPanelItemNhanVienBanHang extends JPanel {
                 item.getReview(), item.getUnit(), item.getImage()
             });
         }
+        // Normal flow bước 5: Hệ thống hiển thị kết quả tìm kiếm cho quản trị viên.
+        // Dữ liệu kết quả sẽ được điền vào bảng jtableItems để hiển thị kết quả
         jtableItems.getTableHeader().setReorderingAllowed(false);
         jtableItems.setModel(defaultTableModel);
         // Thiết lập renderer cho cột ảnh
@@ -145,11 +148,14 @@ public class JPanelItemNhanVienBanHang extends JPanel {
         jtableItems.setRowHeight(60);
     }
     
-    // Xử lý sự kiện khi nhấn nút tìm kiếm
+    // normal flow: bước 1:Quản trị viên nhập nội dung tìm kiếm vào ô tìm kiếm "jtextFieldKeyword".
+    // normal flow: bước 2: Hệ thống nhận nội dung tìm kiếm và truy vấn cơ sở dữ liệu
+    // Nhấn nút search thì hệ thống sẽ lấy từ khóa để tìm kiếm trong dữ liệu. 
+    // Kết quả sẽ được điền vào fillDataToTable
     public void jbuttonSearchItem_actionPerformed(ActionEvent e) {
         ItemModel itemModel = new ItemModel();
-        String keyword = jtextFieldKeyword.getText();
-        fillDataToTable(itemModel.searchByKeyword(keyword));
+        String keyword = jtextFieldKeyword.getText();// Lấy từ khóa từ ô tìm kiếm
+        fillDataToTable(itemModel.searchByKeyword(keyword)); // Tìm kiếm và điền kết quả vào bảng
     }
     
     // Lớp con để render ảnh trong bảng

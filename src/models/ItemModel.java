@@ -37,6 +37,7 @@ public class ItemModel {
 		}
 		return items;
 	}
+	// Normal flow bước 3: Cơ sở dữ liệu xử lý tìm kiếm và trả về danh sách kết quả (item)
 	public List<Item> searchByKeyword(String keyword){
 		List<Item> items = new ArrayList<Item>();
 		try {

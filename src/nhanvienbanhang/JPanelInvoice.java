@@ -219,6 +219,8 @@ public class JPanelInvoice extends JPanel {
 		}
 	}
 
+
+
 	public void jbuttonBackItem_actionPerformed(ActionEvent e) {
 		
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
@@ -232,6 +234,7 @@ public class JPanelInvoice extends JPanel {
 			JFrameInvoiceBack back = new JFrameInvoiceBack(data);
 			back.setVisible(true);
 			
+
 	
 	}
 	public void jbuttonRefresh_actionPerformed(ActionEvent e) {

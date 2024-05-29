@@ -1,5 +1,4 @@
 package nhanvienbanhang;
-
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -110,7 +109,7 @@ public class JPanelItemNhanVienBanHang extends JPanel {
         fillDataToTable(itemModel.findAll());
     }
     
-    // Normal flow bước 4: Hệ thống trả về sản phẩm phù hợp.
+    // Normal flow bước 4: Hệ thống trả về danh sách kết quả và hiển thị lên giao diện.
     // Điền kết quả dữ liệu vào danh sách items
     public void fillDataToTable(List<Item> items) {
         DefaultTableModel defaultTableModel = new DefaultTableModel() {
@@ -138,7 +137,6 @@ public class JPanelItemNhanVienBanHang extends JPanel {
                 item.getReview(), item.getUnit(), item.getImage()
             });
         }
-        // Normal flow bước 5: Hệ thống hiển thị kết quả tìm kiếm cho quản trị viên.
         // Dữ liệu kết quả sẽ được điền vào bảng jtableItems để hiển thị kết quả
         jtableItems.getTableHeader().setReorderingAllowed(false);
         jtableItems.setModel(defaultTableModel);
@@ -148,8 +146,8 @@ public class JPanelItemNhanVienBanHang extends JPanel {
         jtableItems.setRowHeight(60);
     }
     
-    // normal flow: bước 1:Quản trị viên nhập nội dung tìm kiếm vào ô tìm kiếm "jtextFieldKeyword".
-    // normal flow: bước 2: Hệ thống nhận nội dung tìm kiếm và truy vấn cơ sở dữ liệu
+    // normal flow: bước 1: Nhân viên bán hàng nhập từ khóa vào ô "jtextFieldKeyword" tìm kiếm và nhấn nút “Search”.
+    // normal flow: bước 2: Hệ thống nhận từ khóa tìm kiếm và truy vấn cơ sở dữ liệu.
     // Nhấn nút search thì hệ thống sẽ lấy từ khóa để tìm kiếm trong dữ liệu. 
     // Kết quả sẽ được điền vào fillDataToTable
     public void jbuttonSearchItem_actionPerformed(ActionEvent e) {

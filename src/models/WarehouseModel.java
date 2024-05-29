@@ -9,10 +9,13 @@ import java.util.List;
 import entities.OutInvoiceDetails;
 import entities.Warehouse;
 
+//Class này sẽ kết nối với csdl và lấy dữ liệu lên
 public class WarehouseModel {
+	// Phương thức tìm và trả về danh sách tất cả các kho hàng
 	public List<Warehouse> findAll(){
 		List<Warehouse> warehouses = new ArrayList<Warehouse>();
 		try {
+            // Kết nối và thực hiện truy vấn lấy tất cả các kho hàng từ cơ sở dữ liệu
 			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("select * from warehouse");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
@@ -33,6 +36,8 @@ public class WarehouseModel {
 		}
 		return warehouses;
 	}
+	
+    // Phương thức cập nhật tổng số lượng tồn kho của một kho hàng cụ thể
 	public boolean updateTotalInventory(Warehouse warehouse) {
 		boolean result = true;
 		try
@@ -41,7 +46,6 @@ public class WarehouseModel {
 			preparedStatement.setInt(1, warehouse.getTotalInventory());
 			preparedStatement.setInt(2, warehouse.getID());
 			result = preparedStatement.executeUpdate() > 0;
-				
 			
 		}catch(Exception e)
 		{
@@ -52,6 +56,8 @@ public class WarehouseModel {
 		}
 		return result;
 	}
+	
+    // Phương thức tìm một kho hàng dựa trên mã mặt hàng
 	public Warehouse findByItemID(String itemID){
 		Warehouse warehouse = null;
 		try {
@@ -76,6 +82,8 @@ public class WarehouseModel {
 		}
 		return warehouse;
 	}
+	
+    // Phương thức tạo một kho hàng mới
 	public boolean create(Warehouse warehouse) {
 		boolean result = true;
 		try {
@@ -97,6 +105,8 @@ public class WarehouseModel {
 		}
 		return result;
 	}
+	
+    // Phương thức tìm các kho hàng theo danh mục
 	public List<Warehouse> inventory(String category){
 		List<Warehouse> warehouses = new ArrayList<Warehouse>();
 		try {
@@ -123,6 +133,8 @@ public class WarehouseModel {
 		}
 		return warehouses;
 	}
+	
+    // Phương thức tìm các kho hàng có tổng số lượng tồn kho nhỏ hơn một giá trị nhất định
 	public List<Warehouse> totalInventory(int totalInventory){
 		List<Warehouse> warehouses = new ArrayList<Warehouse>();
 		try {

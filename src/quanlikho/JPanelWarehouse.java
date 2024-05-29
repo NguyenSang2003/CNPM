@@ -42,27 +42,29 @@ public class JPanelWarehouse extends JPanel {
 	private JButton jbuttonRefresh;
 
 	/**
-	 * Create the panel.
+	 * tạo cái panel
+	 * 
 	 */
+//	phương thức liên quan đên chức năng xem trạng thái kho
 	public JPanelWarehouse() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+
 		JPanel panel = new JPanel();
 		add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		JLabel lblNewLabel = new JLabel("Warehouse Invoice");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panel.add(lblNewLabel);
-		
+
 		JPanel panel_1 = new JPanel();
 		add(panel_1);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		JLabel aa = new JLabel("Type Invoice:");
 		aa.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(aa);
-		
+
 		jcomboBoxTypeWarehouse = new JComboBox();
 		jcomboBoxTypeWarehouse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,11 +72,11 @@ public class JPanelWarehouse extends JPanel {
 			}
 		});
 		panel_1.add(jcomboBoxTypeWarehouse);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Shift:");
 		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(lblNewLabel_1);
-		
+
 		jcomboBoxShift = new JComboBox();
 		jcomboBoxShift.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -82,14 +84,14 @@ public class JPanelWarehouse extends JPanel {
 			}
 		});
 		panel_1.add(jcomboBoxShift);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Date: ");
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(lblNewLabel_2);
-		
+
 		jdateChooser = new JDateChooser();
 		panel_1.add(jdateChooser);
-		
+
 		jbuttonSearch = new JButton("Search");
 		jbuttonSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,7 +100,7 @@ public class JPanelWarehouse extends JPanel {
 		});
 		jbuttonSearch.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(jbuttonSearch);
-		
+
 		jbuttonRefresh = new JButton("");
 		jbuttonRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,29 +110,34 @@ public class JPanelWarehouse extends JPanel {
 		jbuttonRefresh.setIcon(new ImageIcon(JPanelWarehouse.class.getResource("/icon/352439_refresh_icon.png")));
 		jbuttonRefresh.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		panel_1.add(jbuttonRefresh);
-		
+
 		JPanel panel_2 = new JPanel();
 		add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new TitledBorder(null, "Warehouse Invoice", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		scrollPane.setBorder(
+				new TitledBorder(null, "Warehouse Invoice", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_2.add(scrollPane, BorderLayout.CENTER);
-		
+
 		jtableWarehouse = new JTable();
 		jtableWarehouse.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(jtableWarehouse);
 		initJFrame();
-		
+
 	}
 
+	/**
+	 * tạo cái Frame
+	 * 
+	 */
 	private void initJFrame() {
-		
+
 		DefaultComboBoxModel<String> defaultComboBoxModel = new DefaultComboBoxModel<String>();
 		defaultComboBoxModel.addElement("Warehouse Out Invoice");
 		defaultComboBoxModel.addElement("Warehouse Back Item Invoice");
 		defaultComboBoxModel.addElement("Warehouse In Invoice");
-		
+
 		jcomboBoxTypeWarehouse.setModel(defaultComboBoxModel);
 		DefaultComboBoxModel<String> defaultComboBoxModel1 = new DefaultComboBoxModel<String>();
 		defaultComboBoxModel1.addElement("All");
@@ -140,18 +147,23 @@ public class JPanelWarehouse extends JPanel {
 		jcomboBoxShift.setModel(defaultComboBoxModel1);
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
 		fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetailsByStatus(true));
-		
+
 	}
+
+	/**
+	 * đổ dữ liệu ra
+	 * 
+	 */
 	private void fillDataToTable1(List<OutInvoiceDetails> outInvoiceDetail) {
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
-		DefaultTableModel defaultTableModel=new DefaultTableModel() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		DefaultTableModel defaultTableModel = new DefaultTableModel() {
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 		};
 		defaultTableModel.addColumn("outInvoiceDetailsID");
 		defaultTableModel.addColumn("itemID");
@@ -165,27 +177,28 @@ public class JPanelWarehouse extends JPanel {
 		defaultTableModel.addColumn("unit");
 		defaultTableModel.addColumn("userID");
 		defaultTableModel.addColumn("customerName");
-		for(OutInvoiceDetails details:outInvoiceDetail) {
-			defaultTableModel.addRow(new Object[] {
-				details.getOutInvoiceDetailsID(),details.getItemID(),details.getItemName(),details.getQuantity(),details.getPrice(),details.getTotal(),details.isStatus(),details.getPayment(),
-				details.getCreated(),details.getUnit(),details.getUserID(),details.getCustomerName()
-			});
-			
+		for (OutInvoiceDetails details : outInvoiceDetail) {
+			defaultTableModel.addRow(new Object[] { details.getOutInvoiceDetailsID(), details.getItemID(),
+					details.getItemName(), details.getQuantity(), details.getPrice(), details.getTotal(),
+					details.isStatus(), details.getPayment(), details.getCreated(), details.getUnit(),
+					details.getUserID(), details.getCustomerName() });
+
 		}
 		jtableWarehouse.setModel(defaultTableModel);
 		jtableWarehouse.getTableHeader().setReorderingAllowed(false);
-		
+
 	}
+
 	private void fillDataToTable5(List<WarehouseInInvoiceDetails> warehouses) {
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
-		DefaultTableModel defaultTableModel=new DefaultTableModel() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		DefaultTableModel defaultTableModel = new DefaultTableModel() {
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 		};
 		defaultTableModel.addColumn("ID");
 		defaultTableModel.addColumn("itemID");
@@ -197,19 +210,20 @@ public class JPanelWarehouse extends JPanel {
 		defaultTableModel.addColumn("unit");
 		defaultTableModel.addColumn("userID");
 		defaultTableModel.addColumn("status");
-	
-		for(WarehouseInInvoiceDetails Warehouse:warehouses) {
-			defaultTableModel.addRow(new Object[] {
-			Warehouse.getID(),Warehouse.getItemID(),Warehouse.getQuantity(),Warehouse.getPrice(),Warehouse.getTotal(),Warehouse.getDateIn(),Warehouse.getManufactureID(),Warehouse.getUnit(),Warehouse.getUserID(),Warehouse.isStatus()
-			});
-			
+
+		for (WarehouseInInvoiceDetails Warehouse : warehouses) {
+			defaultTableModel.addRow(new Object[] { Warehouse.getID(), Warehouse.getItemID(), Warehouse.getQuantity(),
+					Warehouse.getPrice(), Warehouse.getTotal(), Warehouse.getDateIn(), Warehouse.getManufactureID(),
+					Warehouse.getUnit(), Warehouse.getUserID(), Warehouse.isStatus() });
+
 		}
 		jtableWarehouse.setModel(defaultTableModel);
 		jtableWarehouse.getTableHeader().setReorderingAllowed(false);
 	}
+
 	private void fillDataToTable4(List<WarehouseBackInvoiceDetails> warehouses) {
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
-		DefaultTableModel defaultTableModel=new DefaultTableModel() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		DefaultTableModel defaultTableModel = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				// TODO Auto-generated method stub
@@ -222,28 +236,30 @@ public class JPanelWarehouse extends JPanel {
 		defaultTableModel.addColumn("feedback");
 		defaultTableModel.addColumn("date");
 		defaultTableModel.addColumn("userID");
-	
-		for(WarehouseBackInvoiceDetails Warehouse:warehouses) {
-			defaultTableModel.addRow(new Object[] {
-			Warehouse.getID(),Warehouse.getItemID(),Warehouse.getQuantity(),Warehouse.getFeedback(),Warehouse.getDate(),Warehouse.getUserID()
-			});
-			
+
+		for (WarehouseBackInvoiceDetails Warehouse : warehouses) {
+			defaultTableModel.addRow(new Object[] { Warehouse.getID(), Warehouse.getItemID(), Warehouse.getQuantity(),
+					Warehouse.getFeedback(), Warehouse.getDate(), Warehouse.getUserID() });
+
 		}
 		jtableWarehouse.setModel(defaultTableModel);
 		jtableWarehouse.getTableHeader().setReorderingAllowed(false);
 	}
+
+//	Liên quan đến chức năng xem trạng thái kho
+	// Xử lý logic tương ứng với việc chọn loại phiếu kho
 	public void jcomboBoxTypeWarehouse_actionPerformed(ActionEvent e) {
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
 		UserModel userModel = new UserModel();
 		WarehouseInInvoiceDetailsModel warehouseInInvoiceDetailsModel = new WarehouseInInvoiceDetailsModel();
 		WarehouseBackInvoiceDetailsModel backInvoiceDetailsModel = new WarehouseBackInvoiceDetailsModel();
-		if(jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Out Invoice")){
+		if (jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Out Invoice")) {
 			jcomboBoxShift.setEnabled(true);
 			jcomboBoxShift.setSelectedItem("All");
 			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetailsByStatus(true));
 			jdateChooser.setDate(null);
-			
-		} else if(jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse In Invoice")) {
+
+		} else if (jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse In Invoice")) {
 			jcomboBoxShift.setEnabled(false);
 			jcomboBoxShift.setSelectedItem("All");
 			jdateChooser.setDate(null);
@@ -253,82 +269,97 @@ public class JPanelWarehouse extends JPanel {
 			jcomboBoxShift.setSelectedItem("All");
 			jdateChooser.setDate(null);
 			fillDataToTable4(backInvoiceDetailsModel.fillAllwarehousebackinvoicedetails());
-			
+
 		}
-	
+
 	}
+
+//	Liên quan đến chức năng xem trạng thái kho
+	// Xử lý logic tương ứng với việc chọn ca làm việc
 	public void jcomboBoxShift_actionPerformed(ActionEvent e) {
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
 		UserModel userModel = new UserModel();
-		
+
 		WarehouseInInvoiceDetailsModel warehouseInInvoiceDetailsModel = new WarehouseInInvoiceDetailsModel();
 		WarehouseBackInvoiceDetailsModel backInvoiceDetailsModel = new WarehouseBackInvoiceDetailsModel();
-		if(jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Out Invoice")){
+		if (jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Out Invoice")) {
 			fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetails());
-			if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
+			if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
 				fillDataToTable1(outInvoiceDetailsModel.findAlloutinvoicedetailsByStatus(true));
 				jdateChooser.setDate(null);
-			}else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
 				fillDataToTable1(outInvoiceDetailsModel.findByShift(userModel.findUser("Morning").getUserID()));
 				jdateChooser.setDate(null);
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
 				fillDataToTable1(outInvoiceDetailsModel.findByShift(userModel.findUser("Night").getUserID()));
 				jdateChooser.setDate(null);
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")){
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")) {
 				fillDataToTable1(outInvoiceDetailsModel.findByShift(userModel.findUser("chieu").getUserID()));
 				jdateChooser.setDate(null);
 			}
-		} else if(jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Back Item Invoice")) {
+		} else if (jcomboBoxTypeWarehouse.getSelectedItem().toString()
+				.equalsIgnoreCase("Warehouse Back Item Invoice")) {
 			fillDataToTable4(backInvoiceDetailsModel.fillAllwarehousebackinvoicedetails());
-			if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
+			if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
 				fillDataToTable4(backInvoiceDetailsModel.fillAllwarehousebackinvoicedetails());
 				jdateChooser.setDate(null);
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
 				fillDataToTable4(backInvoiceDetailsModel.findByShift(userModel.findUser("Morning").getUserID()));
 				jdateChooser.setDate(null);
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")) {
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")) {
 				fillDataToTable4(backInvoiceDetailsModel.findByShift(userModel.findUser("chieu").getUserID()));
 				jdateChooser.setDate(null);
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
 				fillDataToTable4(backInvoiceDetailsModel.findByShift(userModel.findUser("Night").getUserID()));
 				jdateChooser.setDate(null);
 			}
-		} 
+		}
 	}
+
+//	Liên quan đến chức năng xem trạng thái kho
+	// Xử lý logic tìm kiếm dữ liệu trạng thái kho
 	public void jbuttonSearch_actionPerformed(ActionEvent e) {
 		OutInvoiceDetailsModel outInvoiceDetailsModel = new OutInvoiceDetailsModel();
 		UserModel userModel = new UserModel();
-		
+
 		WarehouseInInvoiceDetailsModel warehouseInInvoiceDetailsModel = new WarehouseInInvoiceDetailsModel();
 		WarehouseBackInvoiceDetailsModel backInvoiceDetailsModel = new WarehouseBackInvoiceDetailsModel();
-		if(jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Out Invoice")){
-			if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
+		if (jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Out Invoice")) {
+			if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
 				fillDataToTable1(outInvoiceDetailsModel.findByDate(jdateChooser.getDate(), true));
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
-				fillDataToTable1(outInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Morning").getUserID(), jdateChooser.getDate()));
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")) {
-				fillDataToTable1(outInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("chieu").getUserID(), jdateChooser.getDate()));
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
-				fillDataToTable1(outInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Night").getUserID(), jdateChooser.getDate()));
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
+				fillDataToTable1(outInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Morning").getUserID(),
+						jdateChooser.getDate()));
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")) {
+				fillDataToTable1(outInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("chieu").getUserID(),
+						jdateChooser.getDate()));
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
+				fillDataToTable1(outInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Night").getUserID(),
+						jdateChooser.getDate()));
 			}
-		} else if(jcomboBoxTypeWarehouse.getSelectedItem().toString().equalsIgnoreCase("Warehouse Back Item Invoice")) {
+		} else if (jcomboBoxTypeWarehouse.getSelectedItem().toString()
+				.equalsIgnoreCase("Warehouse Back Item Invoice")) {
 			fillDataToTable4(backInvoiceDetailsModel.fillAllwarehousebackinvoicedetails());
-			if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
+			if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("All")) {
 				fillDataToTable4(backInvoiceDetailsModel.findByDate(jdateChooser.getDate()));
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
-				fillDataToTable4(backInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Morning").getUserID(), jdateChooser.getDate()));
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")) {
-				fillDataToTable4(backInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("chieu").getUserID(), jdateChooser.getDate()));
-			} else if(jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
-				fillDataToTable4(backInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Night").getUserID(), jdateChooser.getDate()));
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Morning")) {
+				fillDataToTable4(backInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Morning").getUserID(),
+						jdateChooser.getDate()));
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Afternoon")) {
+				fillDataToTable4(backInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("chieu").getUserID(),
+						jdateChooser.getDate()));
+			} else if (jcomboBoxShift.getSelectedItem().toString().equalsIgnoreCase("Night")) {
+				fillDataToTable4(backInvoiceDetailsModel.findByShiftAndDate(userModel.findUser("Night").getUserID(),
+						jdateChooser.getDate()));
 			}
 		} else {
 			fillDataToTable5(warehouseInInvoiceDetailsModel.findByDate(jdateChooser.getDate()));
 		}
 	}
+
+	// Xử lý logic làm mới giao diện
 	public void jbuttonRefresh_actionPerformed(ActionEvent e) {
 		initJFrame();
 	}
-	
 
 }

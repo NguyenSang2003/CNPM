@@ -9,6 +9,7 @@ import java.util.List;
 import entities.Item;
 
 public class ItemModel {
+	// list sản phẩm
 	public List<Item> findAll(){
 		List<Item> items = new ArrayList<Item>();
 		try {
@@ -37,7 +38,7 @@ public class ItemModel {
 		}
 		return items;
 	}
-	// Normal flow bước 3: Cơ sở dữ liệu xử lý tìm kiếm và trả về danh sách kết quả (item)
+	// Normal flow bước 3: Cơ sở dữ liệu thực hiện việc truy vấn và trả về danh sách kết quả cho hệ thống.
 	public List<Item> searchByKeyword(String keyword){
 		List<Item> items = new ArrayList<Item>();
 		try {
